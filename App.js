@@ -1,36 +1,39 @@
 
 import React,{useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Touchable } from 'react-native';
-import Cep from './components/Cep';
+import { ImageBackground, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Api from './components/Api';
+import Cotacao from './components/Cotacao';
+
+const image = { uri: "https://i.pinimg.com/474x/ca/90/40/ca9040228a6fd2539246c15d03561777.jpg" };
 
 export default function App() {
-  const[cep, setCep] = useState("");
-  const[inputCep, setInputCep] = useState(0);
-  
-  async function buscaCep(){
-  const response = await Api.get('ws/'+inputCep+'/json/');
- setCep(response.data);
+  const[real, setReal] = useState("");
 
+  async function ParaReal(){
+    const response = await Api.get('json/last/USD-BRL');
+    setReal(response.data.USDBRL);
 }
 
   return (
     <View style={styles.container}>
+      <ImageBackground  style={{
+            position: "absolute",
+            height: '100%',
+            width: '100%'
+          }}source={image}>
+    </ImageBackground>
       <View style={styles.bloco}>
         <Text style={styles.txt}>Cotação de Moedas</Text>
-        
-
- 
-       
+      
         <TouchableOpacity
           style={styles.botao}
-          onPress={buscaCep}
+          onPress={ParaReal}
         >
           <Text style={styles.txtBotao}> Dólar para real </Text>
         </TouchableOpacity>
 
 
-        <Cep data ={cep} />
+        <Cotacao data ={real} />
       </View>
     </View>
   );
@@ -50,6 +53,7 @@ const styles = StyleSheet.create({
   },
   texto:{
     fontSize:20,
+    color: '#fff'
   },
   input:{
     width:'80%',
@@ -63,14 +67,16 @@ const styles = StyleSheet.create({
     width:'80%',
     fontSize: 30,
     marginTop:30,
-    borderBottomColor:'#8b008b'
+    color: '#8b008b'
   },
   txtBotao:{
     fontSize:20,
-    textAlign:'center'
+    textAlign:'center',
+    color: '#fff'
   },
   txt:{
     fontSize:20,
-    textAlign:'center'
+    textAlign:'center',
+    color: '#fff'
   },
 });     

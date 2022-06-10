@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 
-export default function Cep(props) {
+export default function Cotacao(props) {
   return (
     <>
         <Text style={styles.texto}>Compra: {props.data.bid} </Text>
@@ -15,7 +15,8 @@ export default function Cep(props) {
 
 const styles = StyleSheet.create({
     texto:{
-        fontSize: 15,
+        fontSize: 20,
         marginTop:10,
+        color: '#fff'
     }
 });
